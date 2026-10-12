@@ -12,10 +12,9 @@ function Welcome() {
       <div className="welcome-icon">
         <Brain size={40} strokeWidth={1.7} />
       </div>
-      <h1>Конспекты по психологии</h1>
+      <h1>Конспекты по программе "Гештальт-подход в психологическом консультировании"</h1>
       <p>
-        Выберите лекцию в дереве слева. Материалы хранятся в markdown-файлах
-        папки <code>content/</code> — как код.
+        Выберите лекцию в дереве слева.
       </p>
       <div className="welcome-tips">
         <div className="tip">
