@@ -29,7 +29,7 @@ export function Header({ menuOpen, onMenu }: { menuOpen: boolean; onMenu: () => 
           <BookOpenText size={16} />
         </span>
         <span className="brand-name">
-          Конспекты<span className="brand-sub"> · психология</span>
+          Конспекты<span className="brand-sub"> · гештальт-подход</span>
         </span>
       </Link>
       <div className="header-right">

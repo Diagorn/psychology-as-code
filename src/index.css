@@ -713,11 +713,21 @@ mark {
   box-shadow: 0 14px 36px rgba(106, 90, 224, 0.35);
 }
 
+.welcome-eyebrow {
+  font-size: 12px;
+  font-weight: 620;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
 .welcome h1 {
-  font-size: 1.8rem;
+  font-size: 1.65rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   margin: 0 0 12px;
+  text-wrap: balance;
 }
 
 .welcome p {
