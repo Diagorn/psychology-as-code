@@ -47,7 +47,7 @@ export function Header({ menuOpen, onMenu }: { menuOpen: boolean; onMenu: () => 
       <div className="header-right">
         {!isBooks && <SearchBox />}
         <button
-          className="icon-btn"
+          className="icon-btn theme-btn"
           onClick={toggleTheme}
           aria-label="Сменить тему"
           title={theme === 'dark' ? 'Светлая тема' : 'Тёмная тема'}
