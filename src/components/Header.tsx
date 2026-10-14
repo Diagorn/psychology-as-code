@@ -1,12 +1,14 @@
 import { BookOpenText, Menu, Moon, Sun, X } from 'lucide-react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { SearchBox } from './SearchBox'
 
 export function Header({ menuOpen, onMenu }: { menuOpen: boolean; onMenu: () => void }) {
   const [theme, setTheme] = useState<'light' | 'dark'>(() =>
     document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
   )
+  const { pathname } = useLocation()
+  const isBooks = pathname.startsWith('/books')
 
   const toggleTheme = () => {
     const next = theme === 'dark' ? 'light' : 'dark'
@@ -21,9 +23,11 @@ export function Header({ menuOpen, onMenu }: { menuOpen: boolean; onMenu: () => 
 
   return (
     <header className="header">
-      <button className="icon-btn menu-btn" onClick={onMenu} aria-label="Меню">
-        {menuOpen ? <X size={18} /> : <Menu size={18} />}
-      </button>
+      {!isBooks && (
+        <button className="icon-btn menu-btn" onClick={onMenu} aria-label="Меню">
+          {menuOpen ? <X size={18} /> : <Menu size={18} />}
+        </button>
+      )}
       <Link to="/" className="brand">
         <span className="brand-badge">
           <BookOpenText size={16} />
@@ -32,8 +36,16 @@ export function Header({ menuOpen, onMenu }: { menuOpen: boolean; onMenu: () => 
           Конспекты<span className="brand-sub"> · гештальт-подход</span>
         </span>
       </Link>
+      <nav className="tabs" aria-label="Разделы">
+        <NavLink to="/" end className={({ isActive }) => (isActive ? 'tab active' : 'tab')}>
+          Конспекты
+        </NavLink>
+        <NavLink to="/books" className={({ isActive }) => (isActive ? 'tab active' : 'tab')}>
+          Книги
+        </NavLink>
+      </nav>
       <div className="header-right">
-        <SearchBox />
+        {!isBooks && <SearchBox />}
         <button
           className="icon-btn"
           onClick={toggleTheme}
