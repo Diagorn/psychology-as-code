@@ -147,11 +147,19 @@ button {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
   text-decoration: none;
   color: var(--text);
   font-weight: 650;
   font-size: 15px;
   letter-spacing: -0.01em;
+}
+
+.brand-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .brand-badge {
@@ -176,6 +184,7 @@ button {
   align-items: center;
   gap: 10px;
   flex: 1;
+  min-width: 0;
   justify-content: flex-end;
 }
 
@@ -811,6 +820,7 @@ mark {
     flex: 1;
     width: auto;
     max-width: none;
+    min-width: 0;
   }
 
   .search-kbd {
@@ -823,5 +833,12 @@ mark {
 
   .pager-link {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  /* На очень узких экранах оставляем в шапке только бейдж — иначе строка не помещается */
+  .brand-name {
+    display: none;
   }
 }
