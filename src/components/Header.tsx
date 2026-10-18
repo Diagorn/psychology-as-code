@@ -8,7 +8,7 @@ export function Header({ menuOpen, onMenu }: { menuOpen: boolean; onMenu: () => 
     document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
   )
   const { pathname } = useLocation()
-  const isBooks = pathname.startsWith('/books')
+  const isBooksList = pathname === '/books'
 
   const toggleTheme = () => {
     const next = theme === 'dark' ? 'light' : 'dark'
@@ -23,7 +23,7 @@ export function Header({ menuOpen, onMenu }: { menuOpen: boolean; onMenu: () => 
 
   return (
     <header className="header">
-      {!isBooks && (
+      {!isBooksList && (
         <button className="icon-btn menu-btn" onClick={onMenu} aria-label="Меню">
           {menuOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
@@ -45,7 +45,7 @@ export function Header({ menuOpen, onMenu }: { menuOpen: boolean; onMenu: () => 
         </NavLink>
       </nav>
       <div className="header-right">
-        {!isBooks && <SearchBox />}
+        {!pathname.startsWith('/books') && <SearchBox />}
         <button
           className="icon-btn theme-btn"
           onClick={toggleTheme}
