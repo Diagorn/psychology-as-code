@@ -906,6 +906,91 @@ mark {
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
+/* Дропдаун с чекбоксами: фильтр по типу книги */
+.type-filter {
+  position: relative;
+  display: inline-flex;
+}
+
+.type-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  text-align: left;
+}
+
+.type-filter-btn svg {
+  flex: none;
+  transition: transform 0.15s;
+}
+
+.type-filter-btn.open svg {
+  transform: rotate(180deg);
+}
+
+.type-filter-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.type-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 30;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--panel);
+  box-shadow: 0 12px 32px rgba(30, 25, 70, 0.14);
+}
+
+.type-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.type-option:hover {
+  background: var(--accent-soft);
+}
+
+.type-option input {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.type-clear {
+  margin-top: 4px;
+  padding: 7px 10px;
+  border: none;
+  border-top: 1px solid var(--border);
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-size: 13px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.type-clear:hover {
+  text-decoration: underline;
+}
+
 .books-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -1106,6 +1191,15 @@ mark {
   .books-filter {
     flex: 1;
     min-width: 0;
+  }
+
+  .type-filter {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .type-filter-btn {
+    width: 100%;
   }
 }
 

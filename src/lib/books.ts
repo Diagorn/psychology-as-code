@@ -10,6 +10,8 @@ export interface Book {
   author: string
   /** Предмет/дисциплина для фильтра */
   subject: string
+  /** Тип книги для фильтра или null, если в settings.json не указан/неизвестен */
+  type: BookType | null
   /** Markdown конспекта или null, если файла ещё нет */
   raw: string | null
   /** URL pdf-файла (ассет Vite) или null */
@@ -22,6 +24,18 @@ interface BookSettings {
   title?: unknown
   author?: unknown
   subject?: unknown
+  type?: unknown
+}
+
+/** Тип книги — settings.json → settings.type */
+export type BookType = 'LEARNING_BOOK' | 'MONOGRAPHY' | 'GESTALT' | 'OTHER'
+
+const BOOK_TYPES: readonly BookType[] = ['LEARNING_BOOK', 'MONOGRAPHY', 'GESTALT', 'OTHER']
+
+function bookTypeOf(value: unknown): BookType | null {
+  return typeof value === 'string' && (BOOK_TYPES as readonly string[]).includes(value)
+    ? (value as BookType)
+    : null
 }
 
 function folderOf(path: string): string {
@@ -58,6 +72,7 @@ function buildBooks(): Book[] {
       title: slug,
       author: '',
       subject: 'Не указан',
+      type: null,
       raw: null,
       pdfUrl: null,
       pdfName: null,
@@ -72,6 +87,7 @@ function buildBooks(): Book[] {
       if (typeof meta.title === 'string' && meta.title.trim()) book.title = meta.title.trim()
       if (typeof meta.author === 'string' && meta.author.trim()) book.author = meta.author.trim()
       if (typeof meta.subject === 'string' && meta.subject.trim()) book.subject = meta.subject.trim()
+      book.type = bookTypeOf(meta.type)
     } catch {
       // битый settings.json — оставляем значения по умолчанию
     }
