@@ -1,17 +1,31 @@
 import { ChevronRight, FileText } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { NavLink, useParams } from 'react-router-dom'
+import { matchPath, NavLink, useLocation } from 'react-router-dom'
 import { semesters } from '../lib/content'
 
+/** pathname из useLocation остаётся закодированным (браузер кодирует кириллицу в hash),
+ * а <Routes> внутри матчится по декодированному пути — приводим параметры к виду имён папок */
+function decodeParam(value: string | undefined): string | undefined {
+  if (!value) return undefined
+  try {
+    return decodeURIComponent(value)
+  } catch {
+    return value // битые %-последовательности — отдаём как есть
+  }
+}
+
 export function Sidebar({ open }: { open: boolean }) {
-  const params = useParams()
+  // Компонент живёт вне <Routes>, useParams() здесь пуст — берём ветку из pathname
+  const { pathname } = useLocation()
+  const branch = matchPath('/:semester/:discipline/:lecture', pathname)?.params
+  const semester = decodeParam(branch?.semester)
+  const discipline = decodeParam(branch?.discipline)
   const [expanded, setExpanded] = useState<Set<string>>(
     () => new Set(semesters.length ? [`s:${semesters[0]!.slug}`] : []),
   )
 
   // Автоматически раскрываем ветку активной лекции
   useEffect(() => {
-    const { semester, discipline } = params
     if (!semester || !discipline) return
     setExpanded((prev) => {
       const next = new Set(prev)
@@ -19,7 +33,7 @@ export function Sidebar({ open }: { open: boolean }) {
       next.add(`d:${semester}/${discipline}`)
       return next
     })
-  }, [params.semester, params.discipline])
+  }, [semester, discipline])
 
   const toggle = (key: string) =>
     setExpanded((prev) => {
