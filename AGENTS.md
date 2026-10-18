@@ -53,7 +53,7 @@ node .opencode/skills/note-format/scripts/check.mjs "content/<путь к .md>"
 
 - Конспекты книг — по скиллу **`.opencode/skills/book-notes/SKILL.md`**: одна книга —
   одна папка `books/<короткое-имя>/` с исходником (PDF/EPUB), `конспект.md` и
-  `settings.json` (автор, название, предмет).
+  `settings.json` (автор, название, предмет, тип).
 - Вёрстка книжных конспектов — по скиллу `note-format`, проверка — тем же `check.mjs`;
   `npm run build` для `books/` не нужен (сайт `books/` не сканирует).
 
