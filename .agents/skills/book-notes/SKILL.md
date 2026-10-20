@@ -56,7 +56,7 @@ books/
 
 ## Вёрстка конспекта
 
-Строго по правилам скилла **note-format** (`.opencode/skills/note-format/SKILL.md`):
+Строго по правилам скилла **note-format** (`.agents/skills/note-format/SKILL.md`):
 таблицы вместо перечислений, жирные лиды в пунктах, стрелки-последовательности,
 термины инлайн-кодом, ровно один `#`, без HTML. Отличия от лекционного конспекта:
 
@@ -108,7 +108,7 @@ books/
 ## Проверка
 
 ```sh
-node .opencode/skills/note-format/scripts/check.mjs "books/<папка>/конспект.md"
+node .agents/skills/note-format/scripts/check.mjs "books/<папка>/конспект.md"
 ```
 
 Предупреждения = ошибка вёрстки, исправь разметку. `npm run build` не нужен: `books/`

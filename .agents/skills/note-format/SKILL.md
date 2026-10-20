@@ -16,7 +16,7 @@ description: Вёрстка и создание markdown-конспектов л
 5. Проверь разметку скриптом:
 
    ```sh
-   node .opencode/skills/note-format/scripts/check.mjs "<путь к файлу .md>"
+   node .agents/skills/note-format/scripts/check.mjs "<путь к файлу .md>"
    ```
 
    Скрипт парсит файл тем же стеком, что и сайт, и ругается на «сломанные» таблицы и чек-листы. Предупреждения = ошибка вёрстки, исправь разметку.

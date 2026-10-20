@@ -13,7 +13,7 @@ npm run build     # tsc --noEmit (strict) + vite build — всегда прог
 npm run preview   # локальный просмотр production-сборки
 
 # Проверка разметки конспекта тем же стеком, что рендерит сайт:
-node .opencode/skills/note-format/scripts/check.mjs "content/<путь к .md>"
+node .agents/skills/note-format/scripts/check.mjs "content/<путь к .md>"
 ```
 
 ## Архитектура
@@ -41,7 +41,7 @@ node .opencode/skills/note-format/scripts/check.mjs "content/<путь к .md>"
   Пустых папок в дереве не видно — сайт строится только из файлов.
 - **Числовой префикс** (`01 `, `02 `) задаёт порядок лекций и не отображается.
 - Название лекции берётся из имени файла (префикс отбрасывается) или из frontmatter `title`.
-- Форматирование конспектов — строго по скиллу **`.opencode/skills/note-format/SKILL.md`**:
+- Форматирование конспектов — строго по скиллу **`.agents/skills/note-format/SKILL.md`**:
   там каркас файла, правила таблиц/цитат/чек-листов и шаблон. Прочитай его перед
   созданием или вёрсткой конспекта и проверь результат `check.mjs`.
 - Работая с расшифровками встреч: сохранять все факты, ничего не досочинять; очевидные
@@ -51,7 +51,7 @@ node .opencode/skills/note-format/scripts/check.mjs "content/<путь к .md>"
 
 ## Книги (`books/`)
 
-- Конспекты книг — по скиллу **`.opencode/skills/book-notes/SKILL.md`**: одна книга —
+- Конспекты книг — по скиллу **`.agents/skills/book-notes/SKILL.md`**: одна книга —
   одна папка `books/<короткое-имя>/` с исходником (PDF/EPUB), `конспект.md` и
   `settings.json` (автор, название, предмет, тип).
 - Вёрстка книжных конспектов — по скиллу `note-format`, проверка — тем же `check.mjs`;

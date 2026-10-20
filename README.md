@@ -46,12 +46,12 @@ content/
 
 ## Скилл для агентов
 
-Правила вёрстки конспектов оформлены как OpenCode-скилл: `.opencode/skills/note-format/`. Агент подхватывает его автоматически при создании или переоформлении конспектов. Внутри — `references/template.md` (шаблон) и `scripts/check.mjs` (проверка разметки).
+Правила вёрстки конспектов оформлены как OpenCode-скилл: `.agents/skills/note-format/`. Агент подхватывает его автоматически при создании или переоформлении конспектов. Внутри — `references/template.md` (шаблон) и `scripts/check.mjs` (проверка разметки).
 
 Проверить разметку вручную:
 
 ```sh
-node .opencode/skills/note-format/scripts/check.mjs "content/<путь к файлу>.md"
+node .agents/skills/note-format/scripts/check.mjs "content/<путь к файлу>.md"
 ```
 
 ## Поиск
