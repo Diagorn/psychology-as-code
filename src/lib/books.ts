@@ -14,6 +14,8 @@ export interface Book {
   type: BookType | null
   /** Markdown конспекта или null, если файла ещё нет */
   raw: string | null
+  /** Плоское оглавление: главы (h2) без папок-частей — settings.json → toc: "flat" */
+  flatToc: boolean
   /** URL pdf-файла (ассет Vite) или null */
   pdfUrl: string | null
   /** Исходное имя pdf-файла — для имени при скачивании */
@@ -25,6 +27,7 @@ interface BookSettings {
   author?: unknown
   subject?: unknown
   type?: unknown
+  toc?: unknown
 }
 
 /** Тип книги — settings.json → settings.type */
@@ -74,6 +77,7 @@ function buildBooks(): Book[] {
       subject: 'Не указан',
       type: null,
       raw: null,
+      flatToc: false,
       pdfUrl: null,
       pdfName: null,
     })
@@ -88,6 +92,7 @@ function buildBooks(): Book[] {
       if (typeof meta.author === 'string' && meta.author.trim()) book.author = meta.author.trim()
       if (typeof meta.subject === 'string' && meta.subject.trim()) book.subject = meta.subject.trim()
       book.type = bookTypeOf(meta.type)
+      book.flatToc = meta.toc === 'flat'
     } catch {
       // битый settings.json — оставляем значения по умолчанию
     }

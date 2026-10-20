@@ -26,7 +26,8 @@ export function BookSidebar({ open, onNavigate }: { open: boolean; onNavigate?: 
   // Компонент живёт вне <Routes>, useParams() здесь пуст — достаём slug из pathname
   const { pathname } = useLocation()
   const book = findBook(decodeParam(matchPath('/books/:slug', pathname)?.params.slug))
-  const toc = useMemo(() => (book?.raw ? parseBookToc(book.raw) : []), [book])
+  const flatToc = book?.flatToc ?? false
+  const toc = useMemo(() => (book?.raw ? parseBookToc(book.raw, flatToc) : []), [book, flatToc])
   const items = useMemo(() => toc.flatMap((p) => [p, ...p.children]), [toc])
 
   const [activeId, setActiveId] = useState<string | null>(null)
@@ -84,6 +85,30 @@ export function BookSidebar({ open, onNavigate }: { open: boolean; onNavigate?: 
   }
 
   if (!toc.length) return null
+
+  // Плоское оглавление: главы — обычные строки на уровень ниже, без папок
+  if (flatToc) {
+    return (
+      <aside className={open ? 'sidebar open' : 'sidebar'}>
+        <nav className="tree" aria-label="Оглавление книги">
+          <p className="tree-heading">Оглавление</p>
+          {toc.map((chapter) => (
+            <button
+              key={chapter.id}
+              className={
+                activeId === chapter.id ? 'tree-row tree-lecture active' : 'tree-row tree-lecture'
+              }
+              onClick={() => scrollTo(chapter.id)}
+              aria-current={activeId === chapter.id ? 'location' : undefined}
+            >
+              <FileText size={13.5} />
+              <span>{chapter.title}</span>
+            </button>
+          ))}
+        </nav>
+      </aside>
+    )
+  }
 
   return (
     <aside className={open ? 'sidebar open' : 'sidebar'}>

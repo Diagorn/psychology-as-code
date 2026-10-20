@@ -32,10 +32,12 @@ export function headingId(text: string): string {
   return slug || 'razdel'
 }
 
-/** md-конспект → дерево «части → главы» */
-export function parseBookToc(raw: string): BookTocItem[] {
+/** md-конспект → дерево «части → главы».
+ * flat — у книги нет деления на части: главы (h2) идут плоским списком без папок,
+ * подразделы (h3) в меню не показываются. */
+export function parseBookToc(raw: string, flat = false): BookTocItem[] {
   const body = raw.replace(FRONT_MATTER_RE, '')
-  const flat: BookTocEntry[] = []
+  const entries: BookTocEntry[] = []
   let inFence = false
 
   for (const line of body.split('\n')) {
@@ -49,13 +51,19 @@ export function parseBookToc(raw: string): BookTocItem[] {
     if (!match) continue
     const level = match[1]!.length as 2 | 3
     const title = stripInline(match[2]!)
-    flat.push({ id: headingId(title), title, level })
+    entries.push({ id: headingId(title), title, level })
+  }
+
+  if (flat) {
+    return entries
+      .filter((e) => e.level === 2)
+      .map((e) => ({ ...e, children: [] }))
   }
 
   // Группируем главы (h3) под частями (h2)
   const tree: BookTocItem[] = []
   let part: BookTocItem | null = null
-  for (const entry of flat) {
+  for (const entry of entries) {
     if (entry.level === 2) {
       part = { ...entry, children: [] }
       tree.push(part)

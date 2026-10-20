@@ -484,6 +484,11 @@ mark {
   flex-shrink: 0;
 }
 
+/* Длинные названия (главы книг) переносятся, а не обрезаются */
+.tree-lecture span {
+  overflow-wrap: anywhere;
+}
+
 .tree-lecture:hover {
   background: var(--hover);
   color: var(--text);
