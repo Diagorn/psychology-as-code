@@ -464,7 +464,9 @@ mark {
 }
 
 .tree-count {
+  flex-shrink: 0;
   margin-left: auto;
+  white-space: nowrap;
   font-size: 11px;
   font-weight: 500;
   color: var(--muted);
@@ -482,6 +484,11 @@ mark {
 .tree-lecture svg {
   color: var(--muted);
   flex-shrink: 0;
+}
+
+/* Длинные названия (главы книг) переносятся, а не обрезаются */
+.tree-lecture span {
+  overflow-wrap: anywhere;
 }
 
 .tree-lecture:hover {
