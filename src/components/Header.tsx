@@ -8,7 +8,8 @@ export function Header({ menuOpen, onMenu }: { menuOpen: boolean; onMenu: () => 
     document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
   )
   const { pathname } = useLocation()
-  const isBooksList = pathname === '/books'
+  const isBooksArea = pathname.startsWith('/books')
+  const isDeadlines = pathname === '/deadlines'
 
   const toggleTheme = () => {
     const next = theme === 'dark' ? 'light' : 'dark'
@@ -23,7 +24,7 @@ export function Header({ menuOpen, onMenu }: { menuOpen: boolean; onMenu: () => 
 
   return (
     <header className="header">
-      {!isBooksList && (
+      {!isBooksArea && !isDeadlines && (
         <button className="icon-btn menu-btn" onClick={onMenu} aria-label="Меню">
           {menuOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
@@ -43,9 +44,12 @@ export function Header({ menuOpen, onMenu }: { menuOpen: boolean; onMenu: () => 
         <NavLink to="/books" className={({ isActive }) => (isActive ? 'tab active' : 'tab')}>
           Книги
         </NavLink>
+        <NavLink to="/deadlines" className={({ isActive }) => (isActive ? 'tab active' : 'tab')}>
+          Дедлайны
+        </NavLink>
       </nav>
       <div className="header-right">
-        {!pathname.startsWith('/books') && <SearchBox />}
+        {!isBooksArea && !isDeadlines && <SearchBox />}
         <button
           className="icon-btn theme-btn"
           onClick={toggleTheme}

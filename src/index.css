@@ -22,6 +22,13 @@
   --mark-text: #574a12;
   --shadow: 0 18px 50px rgba(30, 25, 70, 0.16);
   --header-bg: rgba(255, 255, 255, 0.86);
+  /* Семантические цвета срочности дедлайнов */
+  --warn: #a16207;
+  --warn-soft: rgba(180, 98, 7, 0.13);
+  --danger: #b42323;
+  --danger-soft: rgba(196, 49, 49, 0.12);
+  --ok: #2e7d43;
+  --ok-soft: rgba(46, 125, 67, 0.13);
   /* Высота шапки; на узких экранах шапка двухрядная — значение переопределяется в адаптиве */
   --header-h: 60px;
 }
@@ -43,6 +50,12 @@
   --mark-text: #ffe9a3;
   --shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
   --header-bg: rgba(19, 19, 23, 0.86);
+  --warn: #e5b054;
+  --warn-soft: rgba(229, 176, 84, 0.15);
+  --danger: #e5484d;
+  --danger-soft: rgba(229, 72, 77, 0.16);
+  --ok: #4cc38a;
+  --ok-soft: rgba(76, 195, 138, 0.15);
 }
 
 /* ─────────────────────────── База ─────────────────────────── */
@@ -1123,6 +1136,327 @@ mark {
   font-size: 12.5px;
 }
 
+/* ─────────────────────────── Дедлайны ─────────────────────────── */
+
+.deadlines-page {
+  width: 100%;
+  max-width: 880px;
+  padding: 30px 40px 90px;
+}
+
+.deadlines-head h1 {
+  margin: 0 0 6px;
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.deadlines-head p {
+  margin: 0 0 22px;
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.deadlines-head p strong {
+  font-weight: 620;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.deadlines-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.deadlines-empty {
+  padding: 46px 20px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Карточка предмета */
+
+.dl-subject {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--panel);
+  padding: 18px 22px 20px;
+}
+
+.dl-subject-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.dl-subject-name {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 680;
+  letter-spacing: -0.01em;
+}
+
+.dl-range {
+  color: var(--muted);
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+
+.dl-block-title {
+  margin: 20px 0 10px;
+  font-size: 11px;
+  font-weight: 620;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Материалы с прогресс-барами */
+
+.dl-materials {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dl-material-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.dl-material-name {
+  font-size: 13.5px;
+  font-weight: 570;
+}
+
+.dl-material-meta {
+  font-size: 12.5px;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.dl-bar {
+  position: relative;
+  height: 8px;
+  margin-top: 7px;
+  border-radius: 99px;
+  background: var(--hover);
+}
+
+.dl-bar-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+/* Маркер цели ближайшего дедлайна на шкале */
+.dl-bar-flag {
+  position: absolute;
+  top: -11px;
+  transform: translateX(-50%);
+  color: var(--accent-strong);
+  display: grid;
+  cursor: help;
+}
+
+.dl-material-status {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Таймлайн дедлайнов и событий */
+
+.dl-timeline {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dl-timeline::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 12px;
+  bottom: 14px;
+  width: 1px;
+  background: var(--border);
+}
+
+.dl-item {
+  position: relative;
+  padding: 0 0 16px 26px;
+}
+
+.dl-item:last-child {
+  padding-bottom: 2px;
+}
+
+.dl-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--panel);
+  border: 2px solid var(--accent);
+}
+
+.dl-item.soon::before {
+  border-color: var(--warn);
+}
+
+.dl-item.urgent::before {
+  border-color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.dl-item.past::before {
+  border-color: var(--border);
+  background: var(--border);
+}
+
+.dl-item-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.dl-date {
+  font-size: 13.5px;
+  font-weight: 620;
+}
+
+.dl-item.past .dl-date {
+  color: var(--muted);
+  font-weight: 550;
+}
+
+.dl-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+.dl-badge-normal {
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+}
+
+.dl-badge-warn {
+  color: var(--warn);
+  background: var(--warn-soft);
+}
+
+.dl-badge-danger {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.dl-badge-past {
+  color: var(--muted);
+  background: var(--hover);
+}
+
+/* Требования к дедлайну */
+
+.dl-reqs {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.dl-req {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--text-2);
+}
+
+.dl-req::before {
+  content: '—';
+  color: var(--muted);
+}
+
+.dl-item.past .dl-req {
+  color: var(--muted);
+}
+
+.dl-req-note {
+  font-size: 11px;
+  font-weight: 570;
+  padding: 1.5px 8px;
+  border-radius: 99px;
+}
+
+.dl-req-note-ok {
+  color: var(--ok);
+  background: var(--ok-soft);
+}
+
+.dl-req-note-miss {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+/* События (экзамены и прочее) */
+
+.dl-event-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.dl-item.past .dl-event-icon {
+  color: var(--muted);
+  background: var(--hover);
+}
+
+.dl-type-chip {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 99px;
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  white-space: nowrap;
+}
+
+.dl-event-name {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--text-2);
+}
+
+.dl-item.past .dl-event-name {
+  color: var(--muted);
+}
+
 /* ─────────────────────────── Адаптив ─────────────────────────── */
 
 .scrim {
@@ -1189,6 +1523,14 @@ mark {
 
   .books-page {
     padding: 22px 16px 70px;
+  }
+
+  .deadlines-page {
+    padding: 22px 16px 70px;
+  }
+
+  .dl-subject {
+    padding: 16px 16px 18px;
   }
 
   .books-search {
