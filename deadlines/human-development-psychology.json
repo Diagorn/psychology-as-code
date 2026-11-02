@@ -1,6 +1,6 @@
 {
-  "id": "human-development-psychology",   // строка, необязательно: идентификатор предмета
-  "name": "Психология развития человека",      // строка: название предмета на странице
+  "id": "human-development-psychology",   
+  "name": "Психология развития человека",     
   "materials":  [ 
     {
       "id": "lectures",
