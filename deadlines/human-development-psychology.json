@@ -9,6 +9,14 @@
       "total": 25,
       "startDate": "2026-10-05",
       "endDate": "2027-02-01"
+    },
+    {
+      "id": "reading",
+      "name": "Чтение учебника А.К.Болотова, О.Н.Молчанова ПСИХОЛОГИЯ РАЗВИТИЯ и возрастная психология",
+      "unit": "глава",
+      "total": 14,
+      "startDate": "2026-10-01",
+      "endDate": "2027-02-01"
     }
   ],
   "deadlines":  [ 
@@ -16,16 +24,17 @@
       "id": "deadline-2",
       "date": "2026-12-11",
       "requirements": [
-        { "materialId": "lectures", "target": 11 }
+        { "materialId": "lectures", "target": 11 },
+        { "materialId": "reading", "target": 9 }
       ]
     }
   ],
   "events":     [
     {
-      "id": "exam",
-      "name": "Экзамен по психологии развития",
+      "id": "credit",
+      "name": "Диф.зачет по психологии развития",
       "date": "2027-02-01",
-      "type": "exam"
+      "type": "credit"
     }
   ]
 }
