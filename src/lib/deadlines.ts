@@ -371,14 +371,33 @@ const EVENT_TYPE_LABELS: Record<string, string> = {
   practice: 'Практика',
 }
 
+/** Ближайший несостоявшийся внутренний срок предмета (дедлайн или событие) или null */
+function nextDateOf(s: Subject, today: Date): Date | null {
+  const dates = [...s.deadlines, ...s.events]
+    .map((x) => x.date)
+    .filter((d) => d.getTime() >= today.getTime())
+  if (dates.length === 0) return null
+  return dates.reduce((a, b) => (b.getTime() < a.getTime() ? b : a))
+}
+
 /** Всё, что нужно странице: фильтр завершённых, сортировка, отсчёты, план */
 export function getDeadlinesView(): DeadlinesView {
   const today = startOfToday()
 
   // Завершённые предметы (последняя дата в прошлом) не показываем
   const visible = subjects.filter((s) => s.endDate.getTime() >= today.getTime())
-  // «Горячие» сверху: раньше заканчивается — выше
-  visible.sort((a, b) => a.endDate.getTime() - b.endDate.getTime())
+  // «Горячие» сверху: раньше заканчивается — выше; при равной дате окончания —
+  // по ближайшему внутреннему сроку, а предметы без отдельных сроков — в конец
+  visible.sort((a, b) => {
+    const byEnd = a.endDate.getTime() - b.endDate.getTime()
+    if (byEnd !== 0) return byEnd
+    const na = nextDateOf(a, today)
+    const nb = nextDateOf(b, today)
+    if (na === null && nb === null) return 0
+    if (na === null) return 1
+    if (nb === null) return -1
+    return na.getTime() - nb.getTime()
+  })
 
   const subjectViews: SubjectView[] = visible.map((s) => {
     const upcoming = s.deadlines.filter((d) => d.date.getTime() >= today.getTime())
@@ -448,11 +467,8 @@ export function getDeadlinesView(): DeadlinesView {
   let nearestDate: Date | null = null
   let nearestSubject: Subject | null = null
   for (const s of visible) {
-    const dates = [...s.deadlines, ...s.events]
-      .map((x) => x.date)
-      .filter((d) => d.getTime() >= today.getTime())
-    if (dates.length === 0) continue
-    const min = dates.reduce((a, b) => (b.getTime() < a.getTime() ? b : a))
+    const min = nextDateOf(s, today)
+    if (!min) continue
     if (!nearestDate || min.getTime() < nearestDate.getTime()) {
       nearestDate = min
       nearestSubject = s
