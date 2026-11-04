@@ -1,0 +1,23 @@
+{
+  "id": "scientific-schools",   
+  "name": "Научные школы и теории в современной психологии",     
+  "materials":  [ 
+    {
+      "id": "lectures",
+      "name": "Курс из YouTube преподавателя",
+      "unit": "видеолекция",
+      "total": 50,
+      "startDate": "2026-10-02",
+      "endDate": "2027-02-01"
+    }
+  ],
+  "deadlines":  [   ],
+  "events":     [
+    {
+      "id": "exam",
+      "name": "Экзамен по научным школам",
+      "date": "2027-02-01",
+      "type": "exam"
+    }
+  ]
+}
