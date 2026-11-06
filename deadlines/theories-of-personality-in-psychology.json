@@ -1,0 +1,23 @@
+{
+  "id": "theories-of-personality-in-psychology",   
+  "name": "Теории личности в психологии",     
+  "materials":  [ 
+    {
+      "id": "lectures",
+      "name": "Курс из личного кабинета",
+      "unit": "видеолекция",
+      "total": 58,
+      "startDate": "2026-10-12",
+      "endDate": "2027-02-01"
+    }
+  ],
+  "deadlines":  [   ],
+  "events":     [
+    {
+      "id": "credit",
+      "name": "Диф. зачет по теориям личности в психологии",
+      "date": "2027-02-01",
+      "type": "credit"
+    }
+  ]
+}
