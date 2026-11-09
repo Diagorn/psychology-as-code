@@ -10,6 +10,7 @@ export function Header({ menuOpen, onMenu }: { menuOpen: boolean; onMenu: () => 
   const { pathname } = useLocation()
   const isBooksArea = pathname.startsWith('/books')
   const isDeadlines = pathname === '/deadlines'
+  const isMaterials = pathname.startsWith('/materials')
 
   const toggleTheme = () => {
     const next = theme === 'dark' ? 'light' : 'dark'
@@ -24,7 +25,7 @@ export function Header({ menuOpen, onMenu }: { menuOpen: boolean; onMenu: () => 
 
   return (
     <header className="header">
-      {!isBooksArea && !isDeadlines && (
+      {!isBooksArea && !isDeadlines && !isMaterials && (
         <button className="icon-btn menu-btn" onClick={onMenu} aria-label="Меню">
           {menuOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
@@ -41,6 +42,9 @@ export function Header({ menuOpen, onMenu }: { menuOpen: boolean; onMenu: () => 
         <NavLink to="/" end className={({ isActive }) => (isActive ? 'tab active' : 'tab')}>
           Конспекты
         </NavLink>
+        <NavLink to="/materials" className={({ isActive }) => (isActive ? 'tab active' : 'tab')}>
+          Материалы
+        </NavLink>
         <NavLink to="/books" className={({ isActive }) => (isActive ? 'tab active' : 'tab')}>
           Книги
         </NavLink>
@@ -49,7 +53,7 @@ export function Header({ menuOpen, onMenu }: { menuOpen: boolean; onMenu: () => 
         </NavLink>
       </nav>
       <div className="header-right">
-        {!isBooksArea && !isDeadlines && <SearchBox />}
+        {!isBooksArea && !isDeadlines && !isMaterials && <SearchBox />}
         <button
           className="icon-btn theme-btn"
           onClick={toggleTheme}

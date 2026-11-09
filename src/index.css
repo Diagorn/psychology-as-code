@@ -1136,6 +1136,192 @@ mark {
   font-size: 12.5px;
 }
 
+/* ─────────────────────────── Материалы ─────────────────────────── */
+
+.materials-page {
+  width: 100%;
+  max-width: 1060px;
+  padding: 30px 40px 90px;
+}
+
+.materials-group {
+  margin-bottom: 28px;
+}
+
+.materials-group-title {
+  margin: 0 0 12px;
+  font-size: 12px;
+  font-weight: 620;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Карточка дисциплины на обзорной странице */
+
+.mat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--panel);
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+
+.mat-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 10px 26px rgba(30, 25, 70, 0.1);
+  transform: translateY(-2px);
+}
+
+.mat-card-desc {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.45;
+}
+
+.mat-card-counts {
+  font-size: 12px;
+  font-weight: 550;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+/* Страница дисциплины */
+
+.mat-title {
+  margin: 0 0 6px;
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.mat-meta {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.mat-description {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.mat-section {
+  margin-top: 26px;
+}
+
+.mat-section-title {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 620;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.mat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mat-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--panel);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.mat-row:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.mat-row-icon {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  display: grid;
+  place-items: center;
+}
+
+.mat-row-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.mat-row-name {
+  font-size: 14px;
+  font-weight: 570;
+  color: var(--text);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+a.mat-row-name:hover {
+  color: var(--accent-strong);
+}
+
+.mat-row-desc {
+  margin: 3px 0 0;
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+.mat-row-url {
+  display: block;
+  margin-top: 3px;
+  font-size: 12px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mat-ext {
+  flex-shrink: 0;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  background: var(--hover);
+  border-radius: 99px;
+  padding: 3px 8px;
+  text-transform: uppercase;
+}
+
+.mat-row-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+}
+
+.mat-row-go {
+  flex-shrink: 0;
+  color: var(--muted);
+  display: grid;
+}
+
+.mat-row:hover .mat-row-go {
+  color: var(--accent-strong);
+}
+
 /* ─────────────────────────── Дедлайны ─────────────────────────── */
 
 .deadlines-page {
@@ -1522,6 +1708,10 @@ mark {
   }
 
   .books-page {
+    padding: 22px 16px 70px;
+  }
+
+  .materials-page {
     padding: 22px 16px 70px;
   }
 

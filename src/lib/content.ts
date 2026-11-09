@@ -38,7 +38,7 @@ interface Meta {
 /** "01 Введение" / "02-История" → порядок + человекочитаемое название */
 const PREFIX_RE = /^(\d+)[.\s_-]+(.+)$/
 
-function parseName(name: string): { order: number; title: string } {
+export function parseName(name: string): { order: number; title: string } {
   const match = PREFIX_RE.exec(name)
   if (match) {
     return { order: parseInt(match[1]!, 10), title: match[2]!.replace(/_+/g, ' ').trim() }
@@ -76,7 +76,7 @@ function toPlainText(md: string): string {
     .trim()
 }
 
-function naturalCompare(a: string, b: string): number {
+export function naturalCompare(a: string, b: string): number {
   return a.localeCompare(b, 'ru', { numeric: true, sensitivity: 'base' })
 }
 

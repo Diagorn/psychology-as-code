@@ -6,6 +6,8 @@ import { BookSidebar } from './components/BookSidebar'
 import { BooksPage } from './components/BooksPage'
 import { DeadlinesPage } from './components/DeadlinesPage'
 import { Header } from './components/Header'
+import { MaterialsDisciplinePage } from './components/MaterialsDisciplinePage'
+import { MaterialsPage } from './components/MaterialsPage'
 import { Sidebar } from './components/Sidebar'
 
 function Shell() {
@@ -14,6 +16,7 @@ function Shell() {
   const isBooksList = location.pathname === '/books'
   const isBookArticle = location.pathname.startsWith('/books/')
   const isDeadlines = location.pathname === '/deadlines'
+  const isMaterials = location.pathname === '/materials' || location.pathname.startsWith('/materials/')
 
   useEffect(() => {
     setMenuOpen(false)
@@ -24,14 +27,18 @@ function Shell() {
       <Header menuOpen={menuOpen} onMenu={() => setMenuOpen((o) => !o)} />
       <div className="app-body">
         {isBookArticle && <BookSidebar open={menuOpen} onNavigate={() => setMenuOpen(false)} />}
-        {!isBooksList && !isBookArticle && !isDeadlines && <Sidebar open={menuOpen} />}
-        {menuOpen && !isBooksList && !isDeadlines && <div className="scrim" onClick={() => setMenuOpen(false)} />}
+        {!isBooksList && !isBookArticle && !isDeadlines && !isMaterials && <Sidebar open={menuOpen} />}
+        {menuOpen && !isBooksList && !isDeadlines && !isMaterials && (
+          <div className="scrim" onClick={() => setMenuOpen(false)} />
+        )}
         <main className="main">
           <Routes>
             <Route path="/" element={<Article />} />
             <Route path="/books" element={<BooksPage />} />
             <Route path="/books/:slug" element={<BookArticle />} />
             <Route path="/deadlines" element={<DeadlinesPage />} />
+            <Route path="/materials" element={<MaterialsPage />} />
+            <Route path="/materials/:semester/:discipline" element={<MaterialsDisciplinePage />} />
             <Route path="/:semester/:discipline/:lecture" element={<Article />} />
             <Route path="*" element={<Article />} />
           </Routes>
